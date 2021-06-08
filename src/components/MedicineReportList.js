@@ -35,6 +35,7 @@ export function MedicineReportList() {
               <th scope="col">REPORT DATE</th>
               <th scope="col">MEDICINE ID</th>
               <th scope="col">PATIENT ID</th>
+              <th scope="col">DOCTOR ID</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -45,15 +46,7 @@ export function MedicineReportList() {
                 <td>{item.reportDate}</td>
                 <td>{item.medicineId}</td>
                 <td>{item.patientId}</td>
-
-                {/* <td>
-                  <input
-                    type="button"
-                    value="Delete"
-                    onClick={() => deleteEmployee(item, index)}
-                    className="btn btn-link text-danger"
-                  />
-                </td> */}
+                <td>{item.id}</td>
               </tr>
             ))}
           </tbody>
