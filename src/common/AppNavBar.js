@@ -14,7 +14,13 @@ export function AppNavBar() {
             Add Medicine
           </Nav.Link>
           <Nav.Link as={Link} to="/list-medicine">
-            List Medicine
+            Medicines List
+          </Nav.Link>
+          <Nav.Link as={Link} to="/add-medicineReport">
+            Add Medicine Report
+          </Nav.Link>
+          <Nav.Link as={Link} to="/list-medicineReport">
+            Medicine Report List
           </Nav.Link>
         </Nav>
       </Navbar.Collapse>

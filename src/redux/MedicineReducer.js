@@ -1,6 +1,7 @@
 const initState = {
   list: [],
   refMed: {},
+  loginAction: false,
 };
 
 // ACTION TYPES
@@ -11,6 +12,7 @@ const MEDICINE_GET_ALL = "MEDICINE_GET_ALL";
 const MEDICINE_GET_BY_ID = "MEDICINE_GET_BY_ID";
 
 const REF_MEDICINE = "REF_MEDICINE";
+const LOGIN_ACTION = "LOGIN_ACTION";
 
 // ACTIONS ::
 export function createMedicineAction(payload) {
@@ -32,7 +34,20 @@ export function createMedicineAction(payload) {
 }
 
 export function updateMedicineAction(payload) {
-  return { type: MEDICINE_UPDATE, payload: payload };
+  return async (dispatch) => {
+    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+    const url = `http://localhost:8080/api/medicine/update/meds`;
+    const requestBody = { ...payload };
+
+    await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    // update the ui.
+    dispatch(updateRefMedicine({}));
+  };
 }
 
 export function deleteMedicineAction(payload) {
@@ -60,7 +75,14 @@ export function getAllMedicineAction(payload) {
 }
 
 export function getByIdMedicineAction(payload) {
-  return { type: MEDICINE_GET_BY_ID, payload: payload };
+  return async (dispatch) => {
+    const url = `http://localhost:8080/api/medicine/getMedById/${payload.medicineId}`;
+    const response = await fetch(url);
+    const medicineObj = await response.json();
+
+    // this wil update the refemp
+    dispatch(updateRefMedicine(medicineObj));
+  };
 }
 
 export function updateRefMedicine(payload) {
@@ -87,6 +109,9 @@ export function MedicineReducer(state = initState, action) {
       return state;
     case REF_MEDICINE:
       return { ...state, refMed: action.payload };
+
+    case LOGIN_ACTION:
+      return { ...state, loginAction: true };
 
     default:
       return state;

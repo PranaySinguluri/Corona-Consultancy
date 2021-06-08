@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createMedicineAction } from "../redux/MedicineReducer";
+import {
+  createMedicineAction,
+  updateMedicineAction,
+} from "../redux/MedicineReducer";
 
 export function MedicineUpsert() {
   const dispatch = useDispatch();
@@ -38,6 +41,28 @@ export function MedicineUpsert() {
     // THIS IS REDUX ACTION CALLING
     dispatch(
       createMedicineAction({
+        medicineName,
+        price,
+        manufactureDate,
+        expiryDate,
+        medicineStock,
+      })
+    );
+
+    // A1 sucess
+    setSuccessOperation(true);
+    setTimeout(() => setSuccessOperation(false), 5000);
+    setMedicineName("");
+    setPrice("");
+    setManufactureDate("");
+    setExpiryDate("");
+    setMedicineStock("");
+  };
+
+  const updateMedicine = () => {
+    dispatch(
+      updateMedicineAction({
+        medicineId: state.medicine.refMed.medicineId,
         medicineName,
         price,
         manufactureDate,
@@ -127,12 +152,12 @@ export function MedicineUpsert() {
         </div>
 
         <div className="mb-1">
-          {state.medicine.refMed.medicineName ? (
+          {state.medicine.refMed.medicineId ? (
             <input
               type="button"
               className="btn btn-secondary w-100"
               value="Update Medicine"
-              onClick={() => {}}
+              onClick={() => updateMedicine()}
             />
           ) : (
             <input

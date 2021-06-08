@@ -4,6 +4,9 @@ import { MedicineUpsert } from "./components/MedicineUpsert";
 import { MedicineList } from "./components/MedicineList";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AppNavBar } from "./common/AppNavBar";
+import { MedicineReportReducer } from "./redux/MedicineReportReducer";
+import { MedicineReportUpsert } from "./components/MedicineReportUpsert";
+import { MedicineReportList } from "./components/MedicineReportList";
 
 function App() {
   return (
@@ -19,8 +22,15 @@ function App() {
           <MedicineList />
         </Route>
 
+        <Route path="/add-medicineReport">
+          <MedicineReportUpsert />
+        </Route>
+        <Route path="/list-medicineReport">
+          <MedicineReportList />
+        </Route>
+
         <Route exact path="/">
-          <MedicineUpsert />
+          <MedicineList />
         </Route>
       </Switch>
     </Router>
