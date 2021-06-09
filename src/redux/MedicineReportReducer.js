@@ -29,23 +29,38 @@ export function createMedicineReportAction(payload) {
 }
 
 export function getAllMedicineReportAction(payload) {
-  return { type: MEDICINEREPORT_GET_ALL, payload: payload };
+  return async (dispatch) => {
+    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+    const url = "http://localhost:8080/api/medicineReport/getAllReports";
+
+    const response = await fetch(url);
+    const medicineReportList = await response.json();
+
+    dispatch({ type: MEDICINEREPORT_GET_ALL, payload: medicineReportList });
+  };
 }
 
-export function getByIdMedicineReportAction(payload) {
-  return { type: MEDICINEREPORT_GET_BY_ID, payload: payload };
-}
+// export function getByIdMedicineReportAction(payload) {
+//   return async (dispatch) => {
+//     // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+//     const url =
+//       "http://localhost:8080/api/medicineReport/getPatientReportById/${payload.patientId}";
+
+//     const response = await fetch(url);
+//     const medReportList = await response.json();
+
+//     dispatch({ type: MEDICINEREPORT_GET_BY_ID, payload: medReportList });
+//   };
+// }
 
 // REDUCER LOGIC
 export function MedicineReportReducer(state = initState, action) {
   switch (action.type) {
     case MEDICINEREPORT_CREATE:
-      // TODO
       return { ...state, list: [action.payload, ...state.list] };
 
     case MEDICINEREPORT_GET_ALL:
-      // TODO
-      return state;
+      return { ...state, list: action.payload };
     case MEDICINEREPORT_GET_BY_ID:
       // TODO
       return state;

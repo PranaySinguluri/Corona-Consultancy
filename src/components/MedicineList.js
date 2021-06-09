@@ -44,7 +44,9 @@ export function MedicineList() {
         <div className="col-3 col-md-2 d-none d-md-block"></div>
         <div className="col-12 col-md-8">
           <h3 className="alert alert-primary">Medicine List</h3>
-
+          {state.medicine.error && (
+            <div className="alert alert-danger">Can't connect error</div>
+          )}
           {successOperation && (
             <div className="alert alert-success">Operation Success</div>
           )}

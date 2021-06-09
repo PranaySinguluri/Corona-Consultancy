@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,6 +9,7 @@ import {
 export function MedicineUpsert() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const formEL = useRef();
   const state = useSelector((state) => state);
 
   const [medicineName, setMedicineName] = useState(
@@ -105,6 +106,7 @@ export function MedicineUpsert() {
           <input
             type="text"
             value={medicineName}
+            required="required"
             onChange={(e) => updateMedicineName(e)}
             className="form-control"
             placeholder="Enter Medicine name"
@@ -115,16 +117,20 @@ export function MedicineUpsert() {
           <input
             type="text"
             value={price}
+            required="required"
+            size="5"
             onChange={(e) => updatePrice(e)}
             className="form-control"
             placeholder="Enter Medicine Price"
           />
         </div>
 
-        <div className="mb-1">
+        <div>
           <input
-            type="text"
+            type="date"
+            className="mb-1"
             value={manufactureDate}
+            required="required"
             onChange={(e) => updateManufactureDate(e)}
             className="form-control"
             placeholder="Enter Manufacture Date"
@@ -133,8 +139,10 @@ export function MedicineUpsert() {
 
         <div className="mb-1">
           <input
-            type="text"
+            placeholder="Enter Expiry Date"
+            type="date"
             value={expiryDate}
+            required="required"
             onChange={(e) => updateExpiryDate(e)}
             className="form-control"
             placeholder="Enter Expiry Date"
@@ -145,6 +153,7 @@ export function MedicineUpsert() {
           <input
             type="text"
             value={medicineStock}
+            required="required"
             onChange={(e) => updateMedicineStock(e)}
             className="form-control"
             placeholder="Enter Stock"

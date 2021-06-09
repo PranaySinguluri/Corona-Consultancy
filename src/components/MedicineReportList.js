@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { getAllMedicineReportAction } from "../redux/MedicineReportReducer";
 
 export function MedicineReportList() {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
   const history = useHistory();
   console.log(state);
+
+  useEffect(() => {
+    dispatch(getAllMedicineReportAction());
+  }, []);
 
   const [successOperation, setSuccessOperation] = useState(false);
 
@@ -36,13 +41,12 @@ export function MedicineReportList() {
               <th scope="col">MEDICINE ID</th>
               <th scope="col">PATIENT ID</th>
               <th scope="col">DOCTOR ID</th>
-              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
             {[...state.medicineReport.list].map((item, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row">{item.medicineReportId}</th>
                 <td>{item.reportDate}</td>
                 <td>{item.medicineId}</td>
                 <td>{item.patientId}</td>

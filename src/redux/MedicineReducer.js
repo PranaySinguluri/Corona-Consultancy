@@ -1,7 +1,7 @@
 const initState = {
   list: [],
   refMed: {},
-  loginAction: false,
+  error: false,
 };
 
 // ACTION TYPES
@@ -11,6 +11,7 @@ const MEDICINE_DELETE = "MEDICINE_DELETE";
 const MEDICINE_GET_ALL = "MEDICINE_GET_ALL";
 const MEDICINE_GET_BY_ID = "MEDICINE_GET_BY_ID";
 
+const SERVER_ERROR = "SERVER_ERROR";
 const REF_MEDICINE = "REF_MEDICINE";
 const LOGIN_ACTION = "LOGIN_ACTION";
 
@@ -64,13 +65,22 @@ export function deleteMedicineAction(payload) {
 
 export function getAllMedicineAction(payload) {
   return async (dispatch) => {
-    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = "http://localhost:8080/api/medicine/getAllmeds";
+    try {
+      // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+      const url = "http://localhost:8080/api/medicine/getAllmeds";
 
-    const response = await fetch(url);
-    const medicineList = await response.json();
+      const response = await fetch(url);
+      const medicineList = await response.json();
 
-    dispatch({ type: MEDICINE_GET_ALL, payload: medicineList });
+      dispatch({ type: MEDICINE_GET_ALL, payload: medicineList });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: SERVER_ERROR, payload: true });
+
+      const localMedicineStringList = localStorage.getItem("medicineList");
+      const localMedicineList = JSON.parse(localMedicineStringList);
+      dispatch({ type: MEDICINE_GET_ALL, payload: localMedicineList });
+    }
   };
 }
 
@@ -112,6 +122,9 @@ export function MedicineReducer(state = initState, action) {
 
     case LOGIN_ACTION:
       return { ...state, loginAction: true };
+
+    case SERVER_ERROR:
+      return { ...state, error: action.payload };
 
     default:
       return state;
