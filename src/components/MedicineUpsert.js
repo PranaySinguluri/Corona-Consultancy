@@ -38,26 +38,30 @@ export function MedicineUpsert() {
 
   const addMedicine = (e) => {
     e.preventDefault();
+    if (formEL.current.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      formEL.current.classList.add("was-validated");
+    } else {
+      dispatch(
+        createMedicineAction({
+          medicineName,
+          price,
+          manufactureDate,
+          expiryDate,
+          medicineStock,
+        })
+      );
 
-    // THIS IS REDUX ACTION CALLING
-    dispatch(
-      createMedicineAction({
-        medicineName,
-        price,
-        manufactureDate,
-        expiryDate,
-        medicineStock,
-      })
-    );
-
-    // A1 sucess
-    setSuccessOperation(true);
-    setTimeout(() => setSuccessOperation(false), 5000);
-    setMedicineName("");
-    setPrice("");
-    setManufactureDate("");
-    setExpiryDate("");
-    setMedicineStock("");
+      // A1 sucess
+      setSuccessOperation(true);
+      setTimeout(() => setSuccessOperation(false), 5000);
+      setMedicineName("");
+      setPrice("");
+      setManufactureDate("");
+      setExpiryDate("");
+      setMedicineStock("");
+    }
   };
 
   const updateMedicine = () => {
@@ -101,82 +105,89 @@ export function MedicineUpsert() {
         {successOperation && (
           <div className="alert alert-success">Medicine added to List</div>
         )}
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={medicineName}
-            required="required"
-            onChange={(e) => updateMedicineName(e)}
-            className="form-control"
-            placeholder="Enter Medicine name"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={price}
-            required="required"
-            size="5"
-            onChange={(e) => updatePrice(e)}
-            className="form-control"
-            placeholder="Enter Medicine Price"
-          />
-        </div>
-
-        <div>
-          <input
-            type="date"
-            className="mb-1"
-            value={manufactureDate}
-            required="required"
-            onChange={(e) => updateManufactureDate(e)}
-            className="form-control"
-            placeholder="Enter Manufacture Date"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            placeholder="Enter Expiry Date"
-            type="date"
-            value={expiryDate}
-            required="required"
-            onChange={(e) => updateExpiryDate(e)}
-            className="form-control"
-            placeholder="Enter Expiry Date"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={medicineStock}
-            required="required"
-            onChange={(e) => updateMedicineStock(e)}
-            className="form-control"
-            placeholder="Enter Stock"
-          />
-        </div>
-
-        <div className="mb-1">
-          {state.medicine.refMed.medicineId ? (
+        <form ref={formEL} class="needs-validation" novalidate>
+          <div className="mb-1">
             <input
-              type="button"
-              className="btn btn-secondary w-100"
-              value="Update Medicine"
-              onClick={() => updateMedicine()}
+              type="text"
+              value={medicineName}
+              required="required"
+              onChange={(e) => updateMedicineName(e)}
+              className="form-control"
+              placeholder="Enter Medicine name"
+              required
+              minLength="4"
+              maxLength="10"
             />
-          ) : (
+          </div>
+
+          <div className="mb-1">
             <input
-              type="button"
-              className="btn btn-secondary w-100"
-              value="Add Medicine"
-              onClick={(e) => addMedicine(e)}
+              type="number"
+              value={price}
+              size="5"
+              onChange={(e) => updatePrice(e)}
+              className="form-control"
+              placeholder="Enter Medicine Price"
+              required
+              minLength="1"
+              maxLength="5"
             />
-          )}
-        </div>
+          </div>
+          <div className="col-1 col-md-12  d-md-block alert alert-secondary">
+            Manufacture Date
+            <div className="mb-1"></div>
+            <input
+              type="date"
+              value={manufactureDate}
+              onChange={(e) => updateManufactureDate(e)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="col-1 col-md-12  d-md-block alert alert-secondary">
+            Expiry Date
+            <div className="mb-1"></div>
+            <input
+              type="date"
+              value={expiryDate}
+              onChange={(e) => updateExpiryDate(e)}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
+            <input
+              type="number"
+              value={medicineStock}
+              onChange={(e) => updateMedicineStock(e)}
+              className="form-control"
+              placeholder="Enter Stock"
+              required
+              minLength="1"
+              maxLength="5"
+            />
+          </div>
+
+          <div className="mb-1">
+            {state.medicine.refMed.medicineId ? (
+              <input
+                type="button"
+                className="btn btn-secondary w-100"
+                value="Update Medicine"
+                onClick={() => updateMedicine()}
+              />
+            ) : (
+              <input
+                type="button"
+                className="btn btn-secondary w-100"
+                value="Add Medicine"
+                onClick={(e) => addMedicine(e)}
+              />
+            )}
+          </div>
+        </form>
       </div>
       <div className="col-3 col-md-3  d-none d-md-block"></div>
     </div>

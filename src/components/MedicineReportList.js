@@ -36,7 +36,7 @@ export function MedicineReportList() {
         <table className="table">
           <thead className="thead-dark">
             <tr>
-              <th scope="col">#ID</th>
+              <th scope="col">ID</th>
               <th scope="col">REPORT DATE</th>
               <th scope="col">MEDICINE ID</th>
               <th scope="col">PATIENT ID</th>

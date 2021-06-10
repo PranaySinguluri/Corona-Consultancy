@@ -7,7 +7,7 @@ import {
   getByIdMedicineAction,
   updateRefMedicine,
 } from "../redux/MedicineReducer";
-import { MedicineModal } from "./MedicineModal";
+
 
 export function MedicineList() {
   const state = useSelector((state) => state);
@@ -74,13 +74,6 @@ export function MedicineList() {
                   <td>
                     <input
                       type="button"
-                      onClick={() => getMedicineById(item)}
-                      value="Detail"
-                      className="btn btn-link-secondary"
-                    />
-                    /
-                    <input
-                      type="button"
                       onClick={() => updateMedicine(item)}
                       value="Edit"
                       className="btn btn-link"
@@ -100,7 +93,6 @@ export function MedicineList() {
         </div>
         <div className="col-3 col-md-2 d-none d-md-block"></div>
       </div>
-      <MedicineModal />
     </>
   );
 }

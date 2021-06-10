@@ -13,7 +13,7 @@ const REF_MEDICINEREPORT = "REF_MEDICINEREPORT";
 export function createMedicineReportAction(payload) {
   return async (dispatch) => {
     // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = "http://localhost:8080/api/medicineReport/add";
+    const url = `http://localhost:8080/api/medicineReport/add`;
     const requestBody = { ...payload };
 
     // HTTP Client
@@ -31,7 +31,7 @@ export function createMedicineReportAction(payload) {
 export function getAllMedicineReportAction(payload) {
   return async (dispatch) => {
     // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = "http://localhost:8080/api/medicineReport/getAllReports";
+    const url = `http://localhost:8080/api/medicineReport/getAllReports`;
 
     const response = await fetch(url);
     const medicineReportList = await response.json();
@@ -61,9 +61,11 @@ export function MedicineReportReducer(state = initState, action) {
 
     case MEDICINEREPORT_GET_ALL:
       return { ...state, list: action.payload };
+
     case MEDICINEREPORT_GET_BY_ID:
       // TODO
       return state;
+
     case REF_MEDICINEREPORT:
       return { ...state, refMedReport: action.payload };
 

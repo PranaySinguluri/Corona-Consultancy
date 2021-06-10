@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
-import "react-calendar/dist/Calendar.css";
 
 ReactDOM.render(
   <React.StrictMode>

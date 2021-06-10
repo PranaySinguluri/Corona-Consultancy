@@ -19,7 +19,7 @@ const LOGIN_ACTION = "LOGIN_ACTION";
 export function createMedicineAction(payload) {
   return async (dispatch) => {
     // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = "http://localhost:8080/api/medicine/savemed";
+    const url = `http://localhost:8080/api/medicine/savemed`;
     const requestBody = { ...payload };
 
     // HTTP Client
