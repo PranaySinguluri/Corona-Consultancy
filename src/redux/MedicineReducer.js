@@ -86,11 +86,18 @@ export function getAllMedicineAction(payload) {
 
 export function getByIdMedicineAction(payload) {
   return async (dispatch) => {
+    console.log(payload);
     const url = `http://localhost:8080/api/medicine/getMedById/${payload.medicineId}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    console.log(response);
     const medicineObj = await response.json();
+    console.log(medicineObj);
 
-    // this wil update the refemp
     dispatch(updateRefMedicine(medicineObj));
   };
 }

@@ -8,7 +8,6 @@ import {
   updateRefMedicine,
 } from "../redux/MedicineReducer";
 
-
 export function MedicineList() {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();

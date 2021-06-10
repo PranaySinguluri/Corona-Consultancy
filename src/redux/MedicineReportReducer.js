@@ -31,11 +31,11 @@ export function createMedicineReportAction(payload) {
 export function getAllMedicineReportAction(payload) {
   return async (dispatch) => {
     // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = `http://localhost:8080/api/medicineReport/getAllReports`;
+    const url = "http://localhost:8080/api/medicineReport/getAllReports";
 
     const response = await fetch(url);
     const medicineReportList = await response.json();
-
+    console.log(medicineReportList);
     dispatch({ type: MEDICINEREPORT_GET_ALL, payload: medicineReportList });
   };
 }
